@@ -1,0 +1,33 @@
+type LocationData {
+  as: String
+  city: String
+  country: String
+  countryCode: String
+  isp: String
+  lat: Float
+  lon: Float
+  org: String
+  query: String
+  region: String
+  regionName: String
+  status: String
+  timezone: String
+  zip: String
+  weather: WeatherData @materializer(query: "weatherData")
+}
+
+type Query {
+  currentLocation: LocationData
+    @rest(
+      endpoint: "http://ip-api.com/json/"
+      headers: [{ name: "", value: "" }]
+    )
+}
+
+
+type Query {
+    locationByIP(ip: String!): LocationData
+    @rest(
+      endpoint: "http://ip-api.com/json/$ip"
+    )
+}

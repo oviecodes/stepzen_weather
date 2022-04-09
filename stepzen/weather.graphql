@@ -1,0 +1,62 @@
+type Clouds {
+  all: Int
+}
+
+type Coord {
+  lat: Float
+  lon: Float
+}
+
+type Main {
+  feels_like: Float
+  humidity: Int
+  pressure: Int
+  temp: Float
+  temp_max: Float
+  temp_min: Float
+}
+
+type Sys {
+  country: String
+  id: Int
+  sunrise: Int
+  sunset: Int
+  type: Int
+}
+
+type OneWeather {
+  description: String
+  icon: String
+  id: Int
+  main: String
+}
+
+type Wind {
+  deg: Int
+  speed: Float
+}
+
+type WeatherData {
+  base: String
+  clouds: Clouds
+  cod: Int
+  coord: Coord
+  dt: Int
+  id: Int
+  main: Main
+  name: String
+  sys: Sys
+  timezone: Int
+  visibility: Int
+  weather: [OneWeather]
+  wind: Wind
+}
+
+
+type Query {
+    weatherData(lat: Float!, lon: Float!): WeatherData
+    @rest(
+      endpoint: "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$api_key",
+      configuration: "owm_config"
+    )
+}
